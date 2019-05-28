@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  namespace: airflow
+  name: airflow-scheduler
+  labels:
+    name: airflow-scheduler
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: airflow-scheduler
+    spec:
+      terminationGracePeriodSeconds: 180
+      containers:        
+        - name: scheduler
+          image: xxxxx.dkr.ecr.us-east-1.amazonaws.com/airflow:latest
+          command: ["airflow"]
+          args: ["scheduler"]
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "1000Mi"
